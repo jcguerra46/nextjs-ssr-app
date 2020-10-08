@@ -9,11 +9,6 @@ const Header = () => {
                             <span className="com-hamburger__bar"></span>
                             <span className="com-hamburger__bar"></span> 
                         </div>
-                        {/* <form className="com-search ">
-                            <input type="text" className="com-search__input" placeholder="Buscar">
-                            <i className="icon-search"></i>
-                            <input type="submit" value="Buscar" className="--btn --primary com-search__submit">
-                        </form> */}
                     </div>
                     <div className="col-4  header__middle">
                         <a href="/" className="header__middle__logo">

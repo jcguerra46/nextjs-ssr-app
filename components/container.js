@@ -14,7 +14,7 @@ const Container = (props) => {
                     <div className="sidebar__main">                  
                         <Head>
                             <title>Next.js SSR APP | Test La Nación</title>
-                            <link rel="stylesheet" href="http://especiales.lanacion.com.ar/arc-css/css/site.css" />
+                            <link rel="stylesheet" href="https://especiales.lanacion.com.ar/arc-css/css/site.css" rel="stylesheet" />
                         </Head>
                         
                         <div>

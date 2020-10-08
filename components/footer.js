@@ -108,7 +108,7 @@ const Footer = () => {
                             </p>
                         </section>
                         <section className="col-desksm-6 col-desk-6 footer-copyright__reserved">
-                            <p>Copyright 2019 SA LA NACION | Todos los derechos reservados</p>
+                            <p>Copyright 2020 SA LA NACION | Todos los derechos reservados</p>
                         </section>
                     </section>
                 </div>
