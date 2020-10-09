@@ -7,7 +7,7 @@ const ShowArticle = (props) => {
         <Container>
             <div className="row">
                 <div className="row com-titleWithfollow hlp-marginBottom-15">
-                    <h1 className="com-title-section-xl hlp-marginBottom-40">Headlines de la Receta</h1>
+                    <h1 className="com-title-section-xl hlp-marginBottom-40">Headline de la Receta</h1>
                 </div>
                 <div className="com-titleWithfollow hlp-marginBottom-15">
                     <p><h2 className="com-title --threexl">Subtitle de la Receta</h2></p>

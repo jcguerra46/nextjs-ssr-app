@@ -12,7 +12,7 @@ export default function Home() {
       <main role="main">
         <section className="jumbotron text-center">
           <div className="container">
-            <h1>La Nación | Techncial Test</h1>
+            <h1>La Nación | Technical Test</h1>
             <p>Juan Carlos Guerra <br /> 
               <small>
               <a href="https://www.linkedin.com/in/jcguerra/" 
