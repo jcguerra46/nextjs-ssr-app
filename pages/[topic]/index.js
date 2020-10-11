@@ -1,3 +1,4 @@
+import React, { Component } from 'react';
 import axios from 'axios';
 import Head from 'next/head';
 
@@ -6,36 +7,56 @@ import Thumbnail from '../../components/Thumbnail';
 import Container from '../../components/container';
 import Taxonomy from '../../components/taxonomy';
 
-const Home = ({ articles, tags }) => {
+class Home extends Component {
 
-    const renderArticles = () => {
+    state = {
+        news: this.props.articles,
+        filtered: []
+    }
+
+    getKeywords = (event) => {
+        let keywords = event.target.value;
+        let filtered = this.state.news.filter((item) => {
+            return item.headlines.basic.indexOf(keywords) > -1;
+        })
+        this.setState({
+            filtered
+        });
+    }
+
+    renderArticles = () => {
+        let newsFullData = this.state.news;
+        let newsFiltered = this.state.filtered;
+        let articles = newsFiltered.length === 0 ? newsFullData : newsFiltered;
         return articles.map((article, index) => {
             return (
                 <article key={index} className="mod-caja-nota lugares w-100-mobile">
-                    <Thumbnail article={article} 
+                    <Thumbnail article={article}
                         imageUrl={(article.promo_items.basic.resized_urls.resizedUrl) || undefined}
                     />
                 </article>
             )
         })
     }
-    
-    return (
-        <Container>
-            <Head>
-                <title>Next.js SSR APP | Test La Nación</title>
-            </Head>
-            <Taxonomy tags={tags} />
-            <section className="row-gap-tablet-2 row-gap-deskxl-3 hlp-degrade">
-                {renderArticles()}
-            </section>
-            <section className="row">
-                <div className="col-12 hlp-text-center hlp-margintop-40">
-                    <button className="--btn --secondary">MÁS NOTAS DE ACUMULADO GRILLA</button>
-                </div>
-            </section>
-        </Container>
-    )
+
+    render() {
+        return (
+            <Container keywords={this.getKeywords}>
+                <Head>
+                    <title>Next.js SSR APP | Test La Nación</title>
+                </Head>
+                <Taxonomy tags={this.props.tags} />
+                <section className="row-gap-tablet-2 row-gap-deskxl-3 hlp-degrade">
+                    {this.renderArticles()}
+                </section>
+                <section className="row">
+                    <div className="col-12 hlp-text-center hlp-margintop-40">
+                        <button className="--btn --secondary">MÁS NOTAS DE ACUMULADO GRILLA</button>
+                    </div>
+                </section>
+            </Container>
+        )
+    }
 }
 
 export const getServerSideProps = async ({ query }) => {
@@ -43,7 +64,7 @@ export const getServerSideProps = async ({ query }) => {
 
     try {
         const response = await axios.get('https://api-test-ln.herokuapp.com/articles')
-    
+
         let articles = await filterSubtitle(response.data);
         let tags = await taxonomyTags(articles);
         // mostrando por consola el formato del json de los Tags
@@ -51,15 +72,15 @@ export const getServerSideProps = async ({ query }) => {
 
         return {
             props: {
-                articles: articles,
-                tags: tags
+                articles,
+                tags
             }
         }
 
     } catch (error) {
         return {
             props: {
-              error: error.error,
+                error: error.error,
             },
         };
     }
@@ -69,7 +90,7 @@ export const getServerSideProps = async ({ query }) => {
 const filterSubtitle = async (data) => {
     let articles = [];
     let res = await data['articles'].map((item) => {
-        if(item.subtype == "7"){
+        if (item.subtype == "7") {
             articles.push(item);
         }
     });
@@ -80,7 +101,7 @@ const filterSubtitle = async (data) => {
 const taxonomyTags = async (articles) => {
     let tagsArray = [];
     // agrupando y totalizando los tags
-    for(let i = 0; i < articles.length; i++){
+    for (let i = 0; i < articles.length; i++) {
         let tags = articles[i].taxonomy.tags;
         tagsArray = getTags(tagsArray, tags);
     }
@@ -89,16 +110,16 @@ const taxonomyTags = async (articles) => {
         return b.count - a.count;
     })
     // mostrar los 10 primeros
-    return tagsArray.splice(0,10);
+    return tagsArray.splice(0, 10);
 }
 
 /** agrupando y totalizando los tags */
 const getTags = (tagsArray, tags) => {
-    for(let t = 0; t < tags.length; t++){
+    for (let t = 0; t < tags.length; t++) {
         let tagExist = isTagExists(tagsArray, tags[t]);
-        if(tagExist){
+        if (tagExist) {
             tagsArray.map((item) => {
-                if(item.text == tags[t].text){
+                if (item.text == tags[t].text) {
                     item.count += 1;
                 }
             })

@@ -21,8 +21,6 @@
   <component name="ChangeListManager">
     <list default="true" id="68f70e3e-e661-43d0-9da3-bf8664246afd" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pages/[topic]/[subtopic]/[article].js" beforeDir="false" afterPath="$PROJECT_DIR$/pages/[topic]/[subtopic]/[article].js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pages/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/pages/index.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -62,7 +60,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1602183096445</updated>
-      <workItem from="1602183097601" duration="12300000" />
+      <workItem from="1602183097601" duration="13961000" />
     </task>
     <servers />
   </component>
@@ -81,10 +79,10 @@
     </option>
   </component>
   <component name="WindowStateProjectService">
-    <state x="1366" y="340" width="424" height="484" key="FileChooserDialogImpl" timestamp="1602197755291">
-      <screen x="67" y="186" width="3219" height="894" />
+    <state x="499" y="155" width="424" height="484" key="FileChooserDialogImpl" timestamp="1602251930463">
+      <screen x="67" y="27" width="1299" height="741" />
     </state>
     <state x="1366" y="340" width="424" height="484" key="FileChooserDialogImpl/67.186.3219.894@67.186.3219.894" timestamp="1602197755291" />
-    <state x="499" y="155" width="424" height="484" key="FileChooserDialogImpl/67.27.1299.741@67.27.1299.741" timestamp="1602190628983" />
+    <state x="499" y="155" width="424" height="484" key="FileChooserDialogImpl/67.27.1299.741@67.27.1299.741" timestamp="1602251930463" />
   </component>
 </project>

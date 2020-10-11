@@ -11,8 +11,8 @@ const Taxonomy = (props) => {
             <div className="row">
                 <div className="cont_tags com-secondary-tag hlp-marginBottom-20">                
                     {
-                    props.tags.map((tag) => (
-                        <Tag tag={tag} />
+                    props.tags.map((tag, i) => (
+                        <Tag tag={tag} key={i}/>
                     ))
                     }
                 </div>

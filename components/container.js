@@ -7,9 +7,12 @@ import Footer from './footer';
 const Container = (props) => {
     return (
         <div>
-            <Header />
-
+            <Header keywords={props.keywords}/>
             <header className="header-mobile">
+                <Head>
+                    <title>Next.js SSR APP | Test La Nación</title>
+                    <link rel="stylesheet" href="https://especiales.lanacion.com.ar/arc-css/css/site.css" rel="stylesheet" />
+                </Head>
                 <div className="lay">
                     <div className="row">
                         <div className="col-6">
@@ -18,29 +21,15 @@ const Container = (props) => {
                             </a>
                         </div>
                         <div className="col-6 hlp-text-right">
-
                             <a>Suscribite</a>
-
-
-
-
                         </div>
                     </div>
                 </div>
             </header>
             <main>
                 <div className="lay-sidebar">
-                    
                     <div className="sidebar__main">                  
-                        <Head>
-                            <title>Next.js SSR APP | Test La Nación</title>
-                            <link rel="stylesheet" href="https://especiales.lanacion.com.ar/arc-css/css/site.css" rel="stylesheet" />
-                        </Head>
-                        
-                        <div>
-                            { props.children }
-                        </div>
-                        
+                        <div>{ props.children }</div>
                     </div>
                 </div>
             </main>
