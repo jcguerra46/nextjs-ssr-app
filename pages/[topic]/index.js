@@ -3,40 +3,39 @@ import axios from 'axios';
 import Head from 'next/head';
 
 /** Components */
-import Thumbnail from '../../components/Thumbnail';
 import Container from '../../components/container';
-import Taxonomy from '../../components/taxonomy';
+import Articles from '../../components/articles';
 
 class Home extends Component {
 
     state = {
         news: this.props.articles,
-        filtered: []
+        keywords: '',
+        newsFiltered: []
     }
 
     getKeywords = (event) => {
         let keywords = event.target.value;
-        let filtered = this.state.news.filter((item) => {
+        this.setState({ keywords });
+        let newsFiltered = this.state.news.filter((item) => {
             return item.headlines.basic.indexOf(keywords) > -1;
         })
-        this.setState({
-            filtered
-        });
+        this.setState({ newsFiltered });
     }
 
     renderArticles = () => {
+        let keywords = this.state.keywords;
         let newsFullData = this.state.news;
-        let newsFiltered = this.state.filtered;
-        let articles = newsFiltered.length === 0 ? newsFullData : newsFiltered;
-        return articles.map((article, index) => {
+        let newsFiltered = this.state.newsFiltered;
+        console.log(newsFiltered);
+        if(keywords != '' && newsFiltered.length === 0){
             return (
-                <article key={index} className="mod-caja-nota lugares w-100-mobile">
-                    <Thumbnail article={article}
-                        imageUrl={(article.promo_items.basic.resized_urls.resizedUrl) || undefined}
-                    />
-                </article>
+                <div>Por {keywords}, no se encuentra articulo.</div>
             )
-        })
+        } else {
+            let articles = newsFiltered.length === 0 ? newsFullData : newsFiltered;
+            <Articles articles={articles} />
+        } 
     }
 
     render() {
@@ -45,7 +44,7 @@ class Home extends Component {
                 <Head>
                     <title>Next.js SSR APP | Test La Nación</title>
                 </Head>
-                <Taxonomy tags={this.props.tags} />
+                
                 <section className="row-gap-tablet-2 row-gap-deskxl-3 hlp-degrade">
                     {this.renderArticles()}
                 </section>
@@ -64,16 +63,10 @@ export const getServerSideProps = async ({ query }) => {
 
     try {
         const response = await axios.get('https://api-test-ln.herokuapp.com/articles')
-
         let articles = await filterSubtitle(response.data);
-        let tags = await taxonomyTags(articles);
-        // mostrando por consola el formato del json de los Tags
-        console.log(tags);
-
         return {
             props: {
-                articles,
-                tags
+                articles
             }
         }
 
@@ -95,54 +88,6 @@ const filterSubtitle = async (data) => {
         }
     });
     return articles;
-}
-
-/** Tags */
-const taxonomyTags = async (articles) => {
-    let tagsArray = [];
-    // agrupando y totalizando los tags
-    for (let i = 0; i < articles.length; i++) {
-        let tags = articles[i].taxonomy.tags;
-        tagsArray = getTags(tagsArray, tags);
-    }
-    // ordenamiento de mayor a menor
-    tagsArray.sort((a, b) => {
-        return b.count - a.count;
-    })
-    // mostrar los 10 primeros
-    return tagsArray.splice(0, 10);
-}
-
-/** agrupando y totalizando los tags */
-const getTags = (tagsArray, tags) => {
-    for (let t = 0; t < tags.length; t++) {
-        let tagExist = isTagExists(tagsArray, tags[t]);
-        if (tagExist) {
-            tagsArray.map((item) => {
-                if (item.text == tags[t].text) {
-                    item.count += 1;
-                }
-            })
-        } else {
-            let obj = setTag(tags[t]);
-            tagsArray.push(obj);
-        }
-    }
-    return tagsArray;
-}
-
-/** Preparando el nuevo objeto tag para insertarlo en la pila */
-const setTag = (tag) => {
-    let obj = {};
-    obj.slug = tag.slug;
-    obj.text = tag.text;
-    obj.count = 1;
-    return obj;
-}
-
-/** Verificando si existe el tags en la pila */
-const isTagExists = (tagsArray, tag) => {
-    return tagsArray.some(item => item['text'] === tag.text);
 }
 
 export default Home;
